@@ -1,38 +1,54 @@
 pipeline {
-   agent any
-
-  parameters {
-
-        booleanParam(name: 'DEPLOY', defaultValue: true, description: 'DEPLOY ?')
-
-        }
+    agent any
     stages {
-
-        stage('Parallel stage') {
-            parallel{
-            stage('stage1'){
+        stage('Non-Parallel Stage') {
             steps {
-               echo "hello word"
-
+                echo 'This stage will be executed first.'
             }
-
-             stage('stage2'){
-                        steps {
-                           echo "hello word"
-
+        }
+        stage('Parallel Stage') {
+            when {
+                branch 'master'
+            }
+            failFast true
+            parallel {
+                stage('Branch A') {
+                    agent {
+                        label "for-branch-a"
+                    }
+                    steps {
+                        echo "On Branch A"
+                    }
+                }
+                stage('Branch B') {
+                    agent {
+                        label "for-branch-b"
+                    }
+                    steps {
+                        echo "On Branch B"
+                    }
+                }
+                stage('Branch C') {
+                    agent {
+                        label "for-branch-c"
+                    }
+                    stages {
+                        stage('Nested 1') {
+                            steps {
+                                echo "In stage Nested 1 within Branch C"
+                            }
                         }
-
-              stage('stage3'){
-              steps {
-                          echo "hello word"
-
-                                    }
+                        stage('Nested 2') {
+                            steps {
+                                echo "In stage Nested 2 within Branch C"
+                            }
+                        }
+                    }
+                }
+            }
         }
-        }
-        }
-        }
+    }
 }
-
 
 //
 // pipeline {
