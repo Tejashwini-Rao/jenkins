@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    stages{
         stage('Parallel Stage') {
             when {
                 branch 'master'
@@ -43,7 +43,7 @@ pipeline {
             }
         }
     }
-
+}
 
 //
 // pipeline {
