@@ -14,7 +14,7 @@ terraform {
 
 terraform {
   backend "s3" {
-    bucket = "terraform-b66"
+    bucket = "terraform-t77"
     key    = "jenkins-jobs-create/terraform.tfstate"
     region = "us-east-1"
   }
