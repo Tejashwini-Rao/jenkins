@@ -14,12 +14,12 @@ resource "jenkins_job" "infra-jobs" {
   })
 }
 
-#resource "jenkins_job" "app-jobs" {
-#  depends_on = [jenkins_folder.folder]
-#  count      = length(var.app-jobs)
-#  name       = element(var.app-jobs, count.index)
-#  folder     = "/job/applications"
-#  template = templatefile("${path.module}/multi-branch-job.xml", {
-#    git_repo = element(var.app-jobs, count.index)
-#  })
-#}
+resource "jenkins_job" "app-jobs" {
+  depends_on = [jenkins_folder.folder]
+  count      = length(var.app-jobs)
+  name       = element(var.app-jobs, count.index)
+  folder     = "/job/applications"
+  template = templatefile("multi-branch-job.xml", {
+    git_repo = element(var.app-jobs, count.index)
+  })
+}
