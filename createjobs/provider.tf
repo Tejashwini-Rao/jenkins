@@ -1,5 +1,5 @@
 provider "jenkins" {
-  server_url = "http://172.31.93.7:8080"
+  server_url = "http://18.207.195.70:8080"
   username   = "admin"
   password   = "admin123"
 }
